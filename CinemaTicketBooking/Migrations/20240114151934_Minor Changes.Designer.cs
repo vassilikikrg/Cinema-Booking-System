@@ -4,6 +4,7 @@ using CinemaTicketBooking.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaTicketBooking.Migrations
 {
     [DbContext(typeof(CinemaDbContext))]
-    partial class CinemaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240114151934_Minor Changes")]
+    partial class MinorChanges
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,7 +50,7 @@ namespace CinemaTicketBooking.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("admins", (string)null);
+                    b.ToTable("admins");
                 });
 
             modelBuilder.Entity("CinemaTicketBooking.Models.Cinema", b =>
@@ -80,7 +83,7 @@ namespace CinemaTicketBooking.Migrations
                     b.HasKey("Id")
                         .HasName("PK_cinema_1");
 
-                    b.ToTable("cinemas", (string)null);
+                    b.ToTable("cinemas");
                 });
 
             modelBuilder.Entity("CinemaTicketBooking.Models.ContentAdmin", b =>
@@ -108,7 +111,7 @@ namespace CinemaTicketBooking.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("content_admin", (string)null);
+                    b.ToTable("content_admin");
                 });
 
             modelBuilder.Entity("CinemaTicketBooking.Models.Customer", b =>
@@ -136,7 +139,7 @@ namespace CinemaTicketBooking.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("customers", (string)null);
+                    b.ToTable("customers");
                 });
 
             modelBuilder.Entity("CinemaTicketBooking.Models.Movie", b =>
@@ -189,7 +192,7 @@ namespace CinemaTicketBooking.Migrations
 
                     b.HasIndex("ContentAdminId");
 
-                    b.ToTable("movies", (string)null);
+                    b.ToTable("movies");
                 });
 
             modelBuilder.Entity("CinemaTicketBooking.Models.Reservation", b =>
@@ -220,7 +223,7 @@ namespace CinemaTicketBooking.Migrations
 
                     b.HasIndex("ScreeningId");
 
-                    b.ToTable("reservations", (string)null);
+                    b.ToTable("reservations");
                 });
 
             modelBuilder.Entity("CinemaTicketBooking.Models.Screening", b =>
@@ -255,7 +258,7 @@ namespace CinemaTicketBooking.Migrations
 
                     b.HasIndex("MovieId");
 
-                    b.ToTable("screenings", (string)null);
+                    b.ToTable("screenings");
                 });
 
             modelBuilder.Entity("CinemaTicketBooking.Models.User", b =>
@@ -309,7 +312,7 @@ namespace CinemaTicketBooking.Migrations
                     b.HasKey("Id")
                         .HasName("PK_user_1");
 
-                    b.ToTable("users", (string)null);
+                    b.ToTable("users");
                 });
 
             modelBuilder.Entity("CinemaTicketBooking.Models.Admin", b =>
