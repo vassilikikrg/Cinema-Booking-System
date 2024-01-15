@@ -24,6 +24,7 @@ namespace CinemaTicketBooking.Controllers
         public async Task<IActionResult> Index()
         {
             var cinemaDbContext = _context.Movies.Include(m => m.ContentAdmin);
+            ViewBag.ContentAdminId = 1; //HARDCODED VALUE FOR NOW
             return View(await cinemaDbContext.ToListAsync());
         }
 
@@ -48,7 +49,6 @@ namespace CinemaTicketBooking.Controllers
         // GET: Movies/Create
         public IActionResult Create()
         {
-            //ViewData["ContentAdminId"] = new SelectList(_context.ContentAdmins, "Id", "Name");
             return View();
         }
 
