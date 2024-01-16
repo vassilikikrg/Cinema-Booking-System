@@ -31,19 +31,22 @@
                 @Html.DisplayNameFor(model => model.StartDateAndTime)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Cinema)
+                @Html.DisplayNameFor(model => model.CinemaId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Movie)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AvailableSeats)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+    @foreach (var item in Model) {
         <tr>
             <td>
-                    @Html.DisplayFor(modelItem => item.StartDateAndTime)
+                @Html.DisplayFor(modelItem => item.StartDateAndTime)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Cinema.Name)
@@ -51,12 +54,30 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Movie.Name)
             </td>
+                @if (item.AvailableSeats <= 20 && item.AvailableSeats>0)
+                {
+                    <td style="background-color:#db8e53">
+                        @Html.DisplayFor(modelItem => item.AvailableSeats)
+                    </td>
+                }
+                @if(item.AvailableSeats==0){
+                    <td style="background-color:#f2645a">
+                        @Html.DisplayFor(modelItem => item.AvailableSeats)
+                    </td>
+                }
+                @if (item.AvailableSeats > 20)
+                {
+                    <td style="background-color:#459950">
+                        @Html.DisplayFor(modelItem => item.AvailableSeats)
+                    </td>
+                }
+
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
-}
+    }
     </tbody>
 </table>
