@@ -12,9 +12,16 @@
                         <div class="form-group">
                             <input type="hidden" name="movieId" value="@Model.Movie.Id" />
                             <input type="hidden" name="selectedScreeningId" value="@screening.Id" />
-                            <button type="submit" class="btn btn-primary">Screening at @screening.StartDateAndTime.ToShortTimeString() on @screening.StartDateAndTime.DayOfWeek @screening.StartDateAndTime.ToShortDateString()</button>
+                            @if (screening.AvailableSeats <= 0)
+                            {
+                                <button type="submit" class="btn btn-danger" disabled>Screening at @screening.StartDateAndTime.ToShortTimeString() on @screening.StartDateAndTime.DayOfWeek @screening.StartDateAndTime.ToShortDateString()</button>
+                            }
+                            else
+                            {
+                                <button type="submit" class="btn btn-primary">Screening at @screening.StartDateAndTime.ToShortTimeString() on @screening.StartDateAndTime.DayOfWeek @screening.StartDateAndTime.ToShortDateString()</button>
+                            }
                         </div>
-                        <br />
+                        <br/>
                     </form>
                 </li>
             }

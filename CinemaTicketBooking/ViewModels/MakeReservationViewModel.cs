@@ -10,8 +10,9 @@ namespace CinemaTicketBooking.ViewModels
         public string MovieName { get; set; }
         public DateTime StartDateAndTime {  get; set; }
         public int ScreeningId { get; set; }
-        [Range(1,20)]
+
         [DisplayName("Number of seats")]
         public int NumberOfSeats {  get; set; }
+        public int AvailableSeats { get; set; }
     }
 }

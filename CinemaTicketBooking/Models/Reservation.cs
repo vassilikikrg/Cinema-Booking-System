@@ -22,7 +22,6 @@ public partial class Reservation
 
     [Column("number_of_seats")]
     [DisplayName("Number of seats reserved")]
-    [Range(1,20)]
     public int NumberOfSeats { get; set; }
 
     [ForeignKey("CustomerId")]

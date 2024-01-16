@@ -143,6 +143,7 @@ namespace CinemaTicketBooking.Controllers
             MakeReservationViewModel viewModel = new MakeReservationViewModel {ScreeningId=screeningId,
                 MovieName=screening.Movie.Name,
                 StartDateAndTime=screening.StartDateAndTime,
+                AvailableSeats=screening.AvailableSeats,
                 NumberOfSeats=1};
             // Pass the screening information to the reservation view
             return View(viewModel);
@@ -153,17 +154,23 @@ namespace CinemaTicketBooking.Controllers
         public IActionResult MakeReservation(int screeningId,int NumberOfSeats)
         {
             int customerId = 1;
-                Reservation reservation = new Reservation()
+            Reservation reservation = new Reservation()
                 {
                     CustomerId = customerId, // Hardcoded for now
                     ScreeningId = screeningId,
                     NumberOfSeats = NumberOfSeats
                 };
 
-                _context.Add(reservation);
-                _context.SaveChanges();
+            _context.Add(reservation);
+            //Update screening's available seats
+            Screening screening=_context.Screenings.Find(screeningId);
+            int availableSeats = screening.AvailableSeats;
+            screening.AvailableSeats = availableSeats-NumberOfSeats;
+            _context.Update(screening);
 
-                return RedirectToAction("Index"); // Redirect to the appropriate action
+            _context.SaveChanges();
+
+            return RedirectToAction("Index"); // Redirect to the appropriate action
 
         }
     // GET: Reservations/Edit/5
