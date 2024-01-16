@@ -6,11 +6,25 @@
 }
 
 <h1>Screening Schedule</h1>
-
+<hr/>
+<div class="row">
+    <div class="col-md-8">
+        <form asp-controller="Screenings" asp-action="Index" method="get">
+            <div class="form-group">
+                <label for="startDate">Start Date:</label>
+                <input type="date" name="startDate" value="@ViewData["StartDate"]" />
+                <label for="endDate">End Date:</label>
+                <input type="date" name="endDate" value="@ViewData["EndDate"]" />
+                <button type="submit" class="btn-primary">Filter</button>
+            </div>
+        </form>
+    </div>
+</div>
+<br />
 <p>
     <a asp-action="Create">Schedule a screening</a>
 </p>
-<table class="table">
+<table class="table table-bordered ">
     <thead>
         <tr>
             <th>

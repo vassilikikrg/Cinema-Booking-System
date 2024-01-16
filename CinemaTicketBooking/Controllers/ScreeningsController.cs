@@ -20,9 +20,17 @@ namespace CinemaTicketBooking.Controllers
         }
 
         // GET: Screenings
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(DateTime? startDate, DateTime? endDate)
         {
-            var cinemaDbContext = _context.Screenings.Include(s => s.Cinema).Include(s => s.Movie).OrderBy(s=>s.StartDateAndTime);
+            // Default time period if not provided
+            startDate ??= DateTime.Now.Date;
+            endDate ??= DateTime.Now.Date.AddDays(7); // Assuming a default period of one week
+
+            var cinemaDbContext = _context.Screenings
+                .Include(s => s.Cinema)
+                .Include(s => s.Movie)
+                .Where(s => s.StartDateAndTime >= startDate && s.StartDateAndTime <= endDate)
+                .OrderBy(s=>s.StartDateAndTime);
             return View(await cinemaDbContext.ToListAsync());
         }
 
