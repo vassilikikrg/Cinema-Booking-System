@@ -1,0 +1,32 @@
+﻿@model CinemaTicketBooking.ViewModels.SelectScreeningViewModel
+
+<h2>Select a screening for <i>@Model.Movie.Name</i></h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <ul>
+            @foreach (var screening in Model.Screenings)
+            {
+                <li>
+                    <form asp-action="SelectScreening" method="post">
+                        <div class="form-group">
+                            <input type="hidden" name="movieId" value="@Model.Movie.Id" />
+                            <input type="hidden" name="selectedScreeningId" value="@screening.Id" />
+                            <button type="submit" class="btn btn-primary">Screening at @screening.StartDateAndTime.ToShortTimeString() on @screening.StartDateAndTime.DayOfWeek @screening.StartDateAndTime.ToShortDateString()</button>
+                        </div>
+                        <br />
+                    </form>
+                </li>
+            }
+        </ul>
+        @if (!Model.Screenings.Any())
+        {
+            <p>
+                There are no scheduled screenings for the movie you selected. Sorry for the inconvenience!
+            </p>
+            <div>
+                <a asp-action="SelectMovie">Go back</a>
+            </div>
+        }
+    </div>
+</div>

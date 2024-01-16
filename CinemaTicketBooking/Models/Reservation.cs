@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,8 @@ public partial class Reservation
     public int CustomerId { get; set; }
 
     [Column("number_of_seats")]
+    [DisplayName("Number of seats reserved")]
+    [Range(1,20)]
     public int NumberOfSeats { get; set; }
 
     [ForeignKey("CustomerId")]

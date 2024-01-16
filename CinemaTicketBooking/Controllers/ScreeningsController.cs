@@ -22,7 +22,7 @@ namespace CinemaTicketBooking.Controllers
         // GET: Screenings
         public async Task<IActionResult> Index()
         {
-            var cinemaDbContext = _context.Screenings.Include(s => s.Cinema).Include(s => s.Movie);
+            var cinemaDbContext = _context.Screenings.Include(s => s.Cinema).Include(s => s.Movie).OrderBy(s=>s.StartDateAndTime);
             return View(await cinemaDbContext.ToListAsync());
         }
 

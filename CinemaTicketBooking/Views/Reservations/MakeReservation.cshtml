@@ -1,0 +1,27 @@
+﻿@model CinemaTicketBooking.ViewModels.MakeReservationViewModel
+@{
+    ViewData["Title"] = "Make a reservation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Make a reservation for <i>@Model.MovieName</i></h2>
+<hr />
+
+<!-- Add reservation form and details as needed -->
+<div class="row">
+    <div class="col-md-6">
+        <p>Selected Screening: @Model.StartDateAndTime.ToShortTimeString() on @Model.StartDateAndTime.DayOfWeek @Model.StartDateAndTime.ToShortDateString()</p>
+            <form asp-action="MakeReservation">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="NumberOfSeats" class="control-label"></label>
+                    <input asp-for="NumberOfSeats" class="form-control" min=1 max=20 />
+                    <span asp-validation-for="NumberOfSeats" class="text-danger"></span>
+                </div>
+            <input type="hidden" name="screeningId" value="@Model.ScreeningId" />
+            <div class="form-group">
+                <input type="submit" value="Complete reservation process" class="btn btn-primary" />
+            </div>
+            </form>
+    </div>
+
+</div>
