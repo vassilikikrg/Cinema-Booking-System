@@ -24,7 +24,11 @@ namespace CinemaTicketBooking.Models
 
         [Column("start_date_time")]
         [DisplayName("Date and Starting Time")]
-        public DateTime StartDateAndTime { get; set; } 
+        public DateTime StartDateAndTime { get; set; }
+
+        [Column("available_seats")]
+        [DisplayName("Available Seats")]
+        public int AvailableSeats { get; set; }
 
         [ForeignKey("CinemaId")]
         [InverseProperty("Screenings")]

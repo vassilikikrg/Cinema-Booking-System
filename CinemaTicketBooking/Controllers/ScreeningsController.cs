@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CinemaTicketBooking.Data;
 using CinemaTicketBooking.Models;
+using CinemaTicketBooking.ViewModels;
 
 namespace CinemaTicketBooking.Controllers
 {
@@ -67,38 +68,46 @@ namespace CinemaTicketBooking.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,MovieId,CinemaId,StartDateAndTime")] Screening screening)
+        public async Task<IActionResult> Create([Bind("MovieId,CinemaId,StartDateAndTime")] AddScreeningViewModel screeningViewModel)
         {
             bool error = false;
             if (ModelState.IsValid)
             {
-                if (!ScreeningDateTimeIsValid(screening.StartDateAndTime))
+                if (!ScreeningDateTimeIsValid(screeningViewModel.StartDateAndTime))
                 {
                     ModelState.AddModelError(nameof(Screening.StartDateAndTime), "Select a future date and starting time");
                     error = true;
                 }
-                var movie = _context.Movies.FirstOrDefault(m => m.Id == screening.MovieId);
-                if (screeningsOverlapping(screening.MovieId, screening.CinemaId, screening.StartDateAndTime, movie.Length))
+                var movie = _context.Movies.FirstOrDefault(m => m.Id == screeningViewModel.MovieId);
+                if (screeningsOverlapping(screeningViewModel.MovieId, screeningViewModel.CinemaId, screeningViewModel.StartDateAndTime, movie.Length))
                 {
                     ModelState.AddModelError(nameof(Screening.StartDateAndTime), "There is already a screening for this movie in the specified cinema hall starting or in progress at the time and day specified");
                     error = true;
                 }
                 if (error)
                 {
-                    ViewData["CinemaId"] = new SelectList(_context.Cinemas, "Id", "Name", screening.CinemaId);
-                    ViewData["MovieId"] = new SelectList(_context.Movies, "Id", "Name", screening.MovieId);
-                    return View(screening);
+                    ViewData["CinemaId"] = new SelectList(_context.Cinemas, "Id", "Name",screeningViewModel.CinemaId);
+                    ViewData["MovieId"] = new SelectList(_context.Movies, "Id", "Name",screeningViewModel.MovieId);
+                    return View(screeningViewModel);
                 }
                 else
                 {
+                    var cinema = _context.Cinemas.FirstOrDefault(m => m.Id == screeningViewModel.CinemaId);
+                    Screening screening = new Screening()
+                        {
+                            CinemaId = screeningViewModel.CinemaId,
+                            MovieId = screeningViewModel.MovieId,
+                            StartDateAndTime = screeningViewModel.StartDateAndTime,
+                            AvailableSeats=cinema.Seats
+                        };
                     _context.Screenings.Add(screening);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
             }
-            ViewData["CinemaId"] = new SelectList(_context.Cinemas, "Id", "Name", screening.CinemaId);
-            ViewData["MovieId"] = new SelectList(_context.Movies, "Id", "Name", screening.MovieId);
-            return View(screening);
+            ViewData["CinemaId"] = new SelectList(_context.Cinemas, "Id", "Name", screeningViewModel.CinemaId);
+            ViewData["MovieId"] = new SelectList(_context.Movies, "Id", "Name", screeningViewModel.MovieId);
+            return View(screeningViewModel);
         }
 
         // GET: Screenings/Edit/5
