@@ -15,14 +15,14 @@
                 <input type="date" name="startDate" value="@ViewData["StartDate"]" />
                 <label for="endDate">End Date:</label>
                 <input type="date" name="endDate" value="@ViewData["EndDate"]" />
-                <button type="submit" class="btn-primary">Filter</button>
+                <button type="submit" class="btn btn-secondary">Filter</button>
             </div>
         </form>
     </div>
 </div>
 <br />
 <p>
-    <a asp-action="Create">Schedule a screening</a>
+    <a asp-action="Create" class="btn btn-secondary">Schedule a screening</a>
 </p>
 <table class="table table-bordered ">
     <thead>
@@ -73,9 +73,8 @@
                 }
 
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="link-secondary">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id" class="link-secondary">Details</a>
             </td>
         </tr>
     }
