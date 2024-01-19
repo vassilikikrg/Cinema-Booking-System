@@ -26,14 +26,36 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Movies" asp-action="Index">Movies</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Customers
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-controller="Screenings" asp-action="Index">Screenings schedule</a></li>
+                                <li><a class="dropdown-item" asp-controller="Reservations" asp-action="SelectMovie">Make a new reservation</a></li>
+                                <li><a class="dropdown-item" asp-controller="Reservations" asp-action="Index">Reservation history</a></li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Screenings" asp-action="Index">Screenings</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Content Admins
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-controller="Movies" asp-action="Index">Movies Catalog</a></li>
+                                <li><a class="dropdown-item" asp-controller="Movies" asp-action="Create">Add a new Movie</a></li>
+                                <li><a class="dropdown-item" asp-controller="Screenings" asp-action="Create">Schedule a new screening</a></li>
+                                <li><a class="dropdown-item" asp-controller="Screenings" asp-action="Index">Edit screening schedule</a></li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Reservations" asp-action="Index">Reservations</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Admins
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-controller="Registration" asp-action="Register">Add a new user</a></li>
+                                <li><a class="dropdown-item" asp-controller="Admin" asp-action="ShowUsers">View all users</a></li>
+                                <li><a class="dropdown-item" asp-controller="Admin" asp-action="DeleteUser">Delete user</a></li>
+                            </ul>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
