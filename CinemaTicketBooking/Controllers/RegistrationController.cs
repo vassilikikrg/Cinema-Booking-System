@@ -5,18 +5,21 @@ using System;
 using CinemaTicketBooking.Models;
 using CinemaTicketBooking.ViewModels;
 using CinemaTicketBooking.Data;
+using CinemaTicketBooking.Cryptography;
 
 namespace CinemaTicketBooking.Controllers
 {
     public class RegistrationController : Controller
     {
         private readonly ILogger<RegistrationController> _logger;
-        private readonly CinemaDbContext _dbContext; // Replace with your actual DbContext
+        private readonly CinemaDbContext _dbContext;
+        private PasswordHasher _passwordHasher;
 
         public RegistrationController(ILogger<RegistrationController> logger, CinemaDbContext dbContext)
         {
             _logger = logger;
             _dbContext = dbContext;
+            _passwordHasher = new PasswordHasher();
         }
 
         public IActionResult Register()
@@ -40,12 +43,11 @@ namespace CinemaTicketBooking.Controllers
                 return View(userRegister);
             }
 
-            // Generate a unique salt for each user (you can use a more secure method)
-            string salt = Guid.NewGuid().ToString("N");
+            // Generate a unique salt for each user 
+            string salt = _passwordHasher.GenerateSalt();
 
             // Hash the password with the generated salt
-            string hashedPassword = HashPassword(userRegister.Password, salt);
-
+            string hashedPassword = _passwordHasher.HashPassword(userRegister.Password, salt);
             // Save the user to the database
             var newUser = new User
             {
@@ -62,15 +64,6 @@ namespace CinemaTicketBooking.Controllers
 
             // Redirect to login page after successful registration
             return RedirectToAction("Login", "Account");
-        }
-
-        private string HashPassword(string password, string salt)
-        {
-            // Implement your password hashing logic here
-            // Example: Use a secure hashing algorithm like bcrypt
-            // In a real-world scenario, consider using a library like BCrypt.Net
-            // For simplicity, a basic hash is shown here (not recommended for production)
-            return password + salt;
         }
     }
 }

@@ -8,18 +8,21 @@ using CinemaTicketBooking.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
+using CinemaTicketBooking.Cryptography;
 
 namespace CinemaTicketBooking.Controllers
 {
     public class AccountController : Controller
     {
         private readonly ILogger<AccountController> _logger;
-        private readonly CinemaDbContext _dbContext; // Replace with your actual DbContext
+        private readonly CinemaDbContext _dbContext; 
+        private PasswordHasher _passwordHasher;
 
         public AccountController(ILogger<AccountController> logger, CinemaDbContext dbContext)
         {
             _logger = logger;
             _dbContext = dbContext;
+            _passwordHasher = new PasswordHasher();
         }
 
         public IActionResult Login()
@@ -40,7 +43,7 @@ namespace CinemaTicketBooking.Controllers
             var existingUser = _dbContext.Users
                 .SingleOrDefault(u => u.Username == userLogin.Username);
 
-            if (existingUser == null || !IsPasswordValid(userLogin.Password, existingUser.Password, existingUser.Salt))
+            if (existingUser == null || !_passwordHasher.IsPasswordValid(userLogin.Password, existingUser.Password, existingUser.Salt))
             {
                 ModelState.AddModelError(string.Empty, "Invalid username or password.");
                 return View(userLogin);
@@ -75,23 +78,6 @@ namespace CinemaTicketBooking.Controllers
 
             // Redirect to home page on successful login
             return RedirectToAction("Index", "Home");*/
-        }
-
-        private bool IsPasswordValid(string enteredPassword, string storedPassword, string salt)
-        {
-            // Implement your password validation logic here
-            // Example: Hash the entered password with the stored salt and compare with the stored password
-            string hashedPassword = HashPassword(enteredPassword, salt);
-            return storedPassword == hashedPassword;
-        }
-
-        private string HashPassword(string password, string salt)
-        {
-            // Implement your password hashing logic here
-            // Example: Use a secure hashing algorithm like bcrypt
-            // In a real-world scenario, consider using a library like BCrypt.Net
-            // For simplicity, a basic hash is shown here (not recommended for production)
-            return password + salt;
         }
 
         public IActionResult Logout()
