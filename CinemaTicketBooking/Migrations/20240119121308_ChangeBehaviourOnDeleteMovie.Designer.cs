@@ -4,6 +4,7 @@ using CinemaTicketBooking.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaTicketBooking.Migrations
 {
     [DbContext(typeof(CinemaDbContext))]
-    partial class CinemaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240119121308_ChangeBehaviourOnDeleteMovie")]
+    partial class ChangeBehaviourOnDeleteMovie
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -350,6 +353,7 @@ namespace CinemaTicketBooking.Migrations
                     b.HasOne("CinemaTicketBooking.Models.ContentAdmin", "ContentAdmin")
                         .WithMany("Movies")
                         .HasForeignKey("ContentAdminId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("movies_fk0");
 
@@ -386,7 +390,6 @@ namespace CinemaTicketBooking.Migrations
                     b.HasOne("CinemaTicketBooking.Models.Movie", "Movie")
                         .WithMany("Screenings")
                         .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("screenings_fk0");
 

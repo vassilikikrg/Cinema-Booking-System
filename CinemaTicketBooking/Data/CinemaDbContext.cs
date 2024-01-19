@@ -97,7 +97,7 @@ public partial class CinemaDbContext : DbContext
                 .HasConstraintName("screenings_fk1");
 
             entity.HasOne(d => d.Movie).WithMany(p => p.Screenings)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade) 
                 .HasConstraintName("screenings_fk0");
         });
 

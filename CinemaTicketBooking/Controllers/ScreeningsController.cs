@@ -131,7 +131,7 @@ namespace CinemaTicketBooking.Controllers
         // POST: Screenings/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,MovieId,CinemaId,StartDateAndTime")] Screening screening)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,MovieId,CinemaId,StartDateAndTime,AvailableSeats")] Screening screening)
         {
             if (id != screening.Id)
             {

@@ -24,6 +24,7 @@ public partial class Movie
     public string Content { get; set; } = null!;
 
     [Column("length")]
+    [Display(Name = "Length ( in minutes )")]
     public int Length { get; set; }
 
     [Column("summary")]

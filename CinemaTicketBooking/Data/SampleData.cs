@@ -8,28 +8,12 @@ namespace CinemaTicketBooking.Data
     {
         public static void Initialize(CinemaDbContext context)
         {
-            string[] roles = new string[] { "Customer", "Admin", "Content_Admin"};
-
-
-
-            var user = new User
+            for(int i=0; i<10; i++)
             {
-                Username = "Test",
-                Email = "test@test.com",
-                Password = "123456",
-                CreateTime = DateTime.Now,
-                Salt="Test",
-                Role = roles[2]
-            };
+                var cinema = new Cinema { Name = "Village Metro Mall " + i.ToString(), Seats = i*20, _3d = "Yes" };
+                context.Cinemas.Add(cinema);
+            }
 
-
-            var cinema=new Cinema { Name = "Village Metro Mall 1", Seats=300, _3d="blah" };
-
-            context.Users.Add(user);
-            context.Cinemas.Add(cinema);
-            context.SaveChanges();
-            var content_admin = new ContentAdmin { UserId = user.Id, Name = "Test Name" };
-            context.ContentAdmins.Add(content_admin);
             context.SaveChanges();
         }
     }

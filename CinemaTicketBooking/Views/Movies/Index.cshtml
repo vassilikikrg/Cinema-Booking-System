@@ -8,7 +8,7 @@
 <h1>Movie Catalog</h1>
 
 <p>
-    <a asp-action="Create">Add new movie</a>
+    <a asp-action="Create" class="btn btn-secondary">Add new movie</a>
 </p>
 <table class="table">
     <thead>
@@ -59,9 +59,8 @@
                     if (ViewBag.ContentAdminId == item.ContentAdminId)
                     {
                         <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="link-secondary">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.Id" class="link-secondary">Details</a>
                         </td>
                     }
             }
