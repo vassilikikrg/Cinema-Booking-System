@@ -1,0 +1,127 @@
+﻿<!-- Login.cshtml -->
+@model CinemaTicketBooking.ViewModels.UserLoginViewModel
+
+<!-- Login.cshtml -->
+<!-- Login.cshtml -->
+@{
+    ViewData["Title"] = "Login";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyScRMpBtxEdhSbWgUJdAe17ay7K2vIMI" crossorigin="anonymous" />
+    <title>Login</title>
+    <!-- Add any additional stylesheets or custom styles here -->
+    <style>
+        /* Custom styles for the login page */
+        .card-header {
+            background-color: #000000; /* Green background for header */
+        }
+
+        .btn-primary {
+            background-color: #000000; /* Red background for submit button */
+            border-color: #000000; /* Red border for submit button */
+        }
+
+        /* Custom styles for radio buttons */
+        .custom-radio .custom-control-input:checked ~ .custom-control-label::before {
+            background-color: #000000000000; /* Red background when checked */
+            border-color: #dc3545; /* Red border when checked */
+        }
+
+        .custom-radio .custom-control-input:checked ~ .custom-control-label::after {
+            color: #fff; /* White checkmark when checked */
+        }
+
+        .custom-radio .custom-control-label::before {
+            background-color: #007bff; /* Blue background when not checked */
+            border-color: #007bff; /* Blue border when not checked */
+        }
+
+        .custom-radio .custom-control-input:checked ~ .custom-control-label:hover::before {
+            background-color: #dc3545; /* Red background when checked and hovered */
+            border-color: #dc3545; /* Red border when checked and hovered */
+        }
+
+        .custom-control.custom-radio .custom-control-input:checked ~ .custom-control-label::before {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+
+        .custom-control.custom-radio .custom-control-label::before {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header text-white">
+                        <h4 class="mb-0">Login</h4>
+                    </div>
+                    <div class="card-body">
+                        <form asp-controller="Account" asp-action="Login" method="post">
+                            <div asp-validation-summary="All" class="alert alert-danger @((!ViewData.ModelState.IsValid) ? "" : "d-none")" role="alert">
+                                <strong>Error:</strong> Please check your credentials and try again.
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Username">Username</label>
+                                <input asp-for="Username" class="form-control" />
+                                <span asp-validation-for="Username" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Password">Password</label>
+                                <input asp-for="Password" type="password" class="form-control" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="hidden" asp-for="Role" value="customer" />
+
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="customerRadio" name="userType" value="Customer" class="custom-control-input">
+                                    <label class="custom-control-label" for="customerRadio">Customer</label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="contentAdminRadio" name="userType" value="ContentAdmin" class="custom-control-input">
+                                    <label class="custom-control-label" for="contentAdminRadio">Content Admin</label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="appAdminRadio" name="userType" value="AppAdmin" class="custom-control-input">
+                                    <label class="custom-control-label" for="appAdminRadio">App Admin</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">Login</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $('input[name="userType"]').on('change', function () {
+            $('#Role').val($(this).val());
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js" integrity="sha384-enp3g4g3SR+D4n4RZL4ZlKks6mzEeN/S9C7W+9Pw3t4WzjwIXOtk4V3+TLMb5a4" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyScRMpBtxEdhSbWgUJdAe17ay7K2vIMI" crossorigin="anonymous"></script>
+
+    <!-- Add your custom scripts or additional scripts here if needed -->
+</body>
+</html>
+
+
+
+

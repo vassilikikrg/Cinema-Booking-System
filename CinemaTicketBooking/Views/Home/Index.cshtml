@@ -1,8 +1,76 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<style>
+    /* Custom styles for the home page */
+    .jumbotron {
+        background-color: #000000; /* Blue background for jumbotron */
+        color: #fff; /* White text color for jumbotron */
+        padding: 20px; /* Add padding to the sides of the jumbotron */
+    }
+
+        .jumbotron p {
+            padding-right: 20px; /* Add padding to the right side of the p element */
+            padding-left: 20px; /* Add padding to the left side of the p element */
+        }
+
+    .jumbotron a {
+        color: #fff; /* White color for jumbotron buttons */
+    }
+
+    .jumbotron a:hover {
+        color: #e0e0e0; /* Lighter color on hover for jumbotron buttons */
+    }
+
+    .feature-section {
+        margin-top: 30px;
+    }
+
+    .feature-box {
+        border: 1px solid #ddd;
+        padding: 20px;
+        margin-bottom: 20px;
+        height: 100%;
+    }
+
+   
+</style>
+
+<div class="jumbotron">
+    <br />
+
+    <h1 class="display-4">Welcome to Cinema Booking System</h1>
+    <p class="lead">Experience the magic of movies with our easy-to-use booking system.</p>
+    
+    <p>Check out the latest movies, book your tickets, and enjoy a fantastic cinema experience.</p>
+    <br />
+
+</div>
+
+<div class="row feature-section">
+    <div class="col-md-4">
+        <div class="feature-box">
+            <img src="https://upload.wikimedia.org/wikipedia/en/f/f3/Poor_Things_poster.jpg" alt="Latest Movies" class="img-fluid mb-3">
+            <h2>Latest Movies</h2>
+            <p>Discover the newest releases and plan your next movie night.</p>
+            <a class="btn btn-secondary" href="/Movies/Index" role="button">View Movies &raquo;</a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="feature-box">
+            
+            <h2>Upcoming Screenings</h2>
+            <p>Explore the upcoming movie screenings and book your tickets in advance.</p>
+            <a class="btn btn-secondary" href="/Screenings" role="button">View Screenings &raquo;</a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="feature-box">
+            
+            <h2>Your Reservations</h2>
+            <p>Check your reservation history and manage your upcoming bookings.</p>
+            <a class="btn btn-secondary" href="/Reservations" role="button">View Reservations &raquo;</a>
+        </div>
+    </div>
 </div>
