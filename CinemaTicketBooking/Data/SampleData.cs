@@ -36,6 +36,14 @@ namespace CinemaTicketBooking.Data
                     context.Customers.Add(new Customer { Name = "ContentAdmin Name", UserId = id });
                     context.SaveChanges();
                 }
+                if (!context.Cinemas.Any())
+                {
+                    for (int i = 0; i < 10; i++)
+                    {
+                        var cinema = new Cinema { Name = "Village Metro Mall " + i.ToString(), Seats = i * 20, _3d = "Yes" };
+                        context.Cinemas.Add(cinema);
+                    }
+                }
             }
         }
 
