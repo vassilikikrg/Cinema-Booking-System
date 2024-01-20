@@ -1,0 +1,74 @@
+﻿@model IEnumerable<CinemaTicketBooking.Models.Screening>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Screening Schedule</h1>
+<hr/>
+<div class="row">
+    <div class="col-md-8">
+        <form asp-controller="Screenings" asp-action="Index" method="get">
+            <div class="form-group">
+                <label for="startDate">Start Date:</label>
+                <input type="date" name="startDate" value="@ViewData["StartDate"]" />
+                <label for="endDate">End Date:</label>
+                <input type="date" name="endDate" value="@ViewData["EndDate"]" />
+                <button type="submit" class="btn btn-secondary">Filter</button>
+            </div>
+        </form>
+    </div>
+</div>
+<br/>
+
+<table class="table table-bordered ">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDateAndTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CinemaId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Movie)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AvailableSeats)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDateAndTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cinema.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Movie.Name)
+            </td>
+                @if (item.AvailableSeats <= 20 && item.AvailableSeats>0)
+                {
+                    <td style="background-color:#db8e53">
+                        @Html.DisplayFor(modelItem => item.AvailableSeats)
+                    </td>
+                }
+                @if(item.AvailableSeats==0){
+                    <td style="background-color:#f2645a">
+                        @Html.DisplayFor(modelItem => item.AvailableSeats)
+                    </td>
+                }
+                @if (item.AvailableSeats > 20)
+                {
+                    <td style="background-color:#459950">
+                        @Html.DisplayFor(modelItem => item.AvailableSeats)
+                    </td>
+                }
+        </tr>
+    }
+    </tbody>
+</table>
