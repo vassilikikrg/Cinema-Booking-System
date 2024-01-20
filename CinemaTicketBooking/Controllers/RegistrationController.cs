@@ -61,7 +61,36 @@ namespace CinemaTicketBooking.Controllers
 
             _dbContext.Users.Add(newUser);
             _dbContext.SaveChanges();
+            if (userRegister.Role == "Customer")
+            {
+                var customer = new Customer
+                {
+                    Name = userRegister.Username,
+                    UserId = newUser.Id
+                };
 
+                _dbContext.Customers.Add(customer);
+            }
+            else if(userRegister.Role == "Content_Admin") {
+                var content_admin = new ContentAdmin
+                {
+                    Name = userRegister.Username,
+                    UserId = newUser.Id
+                };
+
+                _dbContext.ContentAdmins.Add(content_admin);
+            }
+            else
+            {
+                var admin = new Admin
+                {
+                    Name = userRegister.Username,
+                    UserId = newUser.Id
+                };
+
+                _dbContext.Admins.Add(admin);
+            }
+            _dbContext.SaveChanges();
             // Redirect to login page after successful registration
             return RedirectToAction("Login", "Account");
         }
